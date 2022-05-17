@@ -1,0 +1,222 @@
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
+.tv-list {
+  width: 85vw;
+  min-height: 90vh;
+  margin: 15px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 25px;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 480px;
+  background-color: #95dada;
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 25px;
+  cursor: pointer;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: transform 0.25s ease-out;
+}
+
+.card-container:hover {
+  transform: scale(1.05);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "poster show-name show-name show-name"
+    "poster add-watchlist add-watchlist add-watchlist"
+    "poster plot plot plot"
+    "poster plot plot plot"
+    "poster genres genres genres"
+    "poster date-season-info date-season-info date-season-info";
+  grid-gap: 10px;
+  width: 70%;
+  margin-top: 30px;
+  margin-right: 15%;
+  margin-left: 15%;
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: rgba(0, 217, 255, 0.5);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
+
+.poster {
+  grid-area: poster;
+}
+
+.show-name {
+  grid-area: show-name;
+}
+
+.add-watchlist {
+  grid-area: add-watchlist;
+}
+
+.plot {
+  grid-area: plot;
+}
+
+.genres {
+  grid-area: genres;
+}
+
+.date-season-info {
+  grid-area: date-season-info;
+}
+
+.myButton {
+  background-color: #44c767;
+  border-radius: 28px;
+  border: 1px solid #18ab29;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 17px;
+  padding: 30px 67px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #2f6627;
+}
+.myButton:hover {
+  background-color: #5cbf2a;
+}
+.myButton:active {
+  position: relative;
+  top: 1px;
+}
+
+.actors-list {
+  width: 70%;
+  margin-top: 30px;
+  margin-right: 15%;
+  margin-left: 15%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 25px;
+}
+
+.season-number {
+  margin-top: 30px;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.actors-text {
+  width: 70%;
+  margin-top: 30px;
+  margin-right: 15%;
+  margin-left: 15%;
+}
+
+.images-container {
+  width: 70%;
+  margin-top: 30px;
+  margin-right: 15%;
+  margin-left: 15%;
+}
+
+.recommended-list {
+  width: 70%;
+  margin-top: 30px;
+  margin-right: 15%;
+  margin-left: 15%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 25px;
+}
+
+.episode-button {
+  background-color: #d670a5;
+  border-radius: 28px;
+  border: 2px solid #18ab29;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 16px;
+  padding: 10px 5px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #2f6627;
+}
+.episode-button:hover {
+  background-color: #e0206d;
+}
+.episode-button:active {
+  position: relative;
+  top: 1px;
+}
+
+.episode-list {
+  width: 85vw;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 25px;
+}
+
+.episode-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #95dada;
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 25px;
+  cursor: pointer;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: transform 0.25s ease-out;
+}
+
+.episode-container:hover {
+  transform: scale(1.05);
+}
+
+.genre-container {
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #cd0000;
+  color: white;
+}
+
+.genre-container span {
+  margin-right: 10px;
+}
+
+.average-container {
+  border-radius: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+}
+
+.remove-btn {
+  background-color: #cd0000;
+  width: 100%;
+  color: white;
+}
+
+.remove-btn:hover {
+  background-color: #e0206d;
+}
+.remove-btn:active {
+  position: relative;
+  top: 1px;
+}
