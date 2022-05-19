@@ -6,7 +6,7 @@ import noImage from "../../images/no-image.jpg";
 
 import { idToGenre } from "../../utils/idToGenre";
 import "../features.css";
-import { isDetailsOn, isEpisodesPageOn } from "../../constants/actionTypes";
+import { clearElements, setSearchField } from "../../constants/actionTypes";
 import {
   showDetailsTvShow,
   showActorsTvShow,
@@ -15,11 +15,10 @@ import {
 } from "../../slices/showDetailsSlice";
 
 export const selectShowById = (state, showId) => {
-  return state.shows.showList.results.find((show) => show.id === showId);
+  return state?.shows?.showList?.results?.find((show) => show?.id === showId);
 };
 
 export default function Card({ id }) {
-  const history = useHistory();
   const dispatch = useDispatch();
   const show = useSelector((state) => selectShowById(state, id));
   const handleClick = async () => {
@@ -27,8 +26,8 @@ export default function Card({ id }) {
     await dispatch(showActorsTvShow(id));
     await dispatch(showImagesTvShow(id));
     await dispatch(showRecommendedTvShow(id));
-    await dispatch(isDetailsOn(true));
-    await dispatch(isEpisodesPageOn(false));
+    await dispatch(setSearchField(""));
+    await dispatch(clearElements());
   };
   return (
     <Link to={`/details/${id}`}>

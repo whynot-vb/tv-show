@@ -4,11 +4,7 @@ import { Link } from "react-router-dom";
 import { FcRating } from "react-icons/fc";
 import noImage from "../../images/no-image.jpg";
 
-import {
-  isDetailsOn,
-  isEpisodesPageOn,
-  clearElements,
-} from "../../constants/actionTypes";
+import { clearElements } from "../../constants/actionTypes";
 import "../features.css";
 import {
   showDetailsTvShow,
@@ -28,8 +24,6 @@ export default function MiniCard({ id }) {
   const show = useSelector((state) => selectRecommendedShowById(state, id));
 
   const handleClick = async () => {
-    await dispatch(isDetailsOn(true));
-    await dispatch(isEpisodesPageOn(false));
     await dispatch(showDetailsTvShow(id));
     await dispatch(showActorsTvShow(id));
     await dispatch(showImagesTvShow(id));
@@ -55,12 +49,14 @@ export default function MiniCard({ id }) {
             </span>
           </div>
           <p>
-            {show?.genre_ids?.map((id) => {
-              return (
-                <span key={id} className="genre-container">
-                  <span>{idToGenre(id)}</span>
-                </span>
-              );
+            {show?.genre_ids?.map((id, i) => {
+              if (i < 3) {
+                return (
+                  <span key={id} className="genre-container">
+                    <span>{idToGenre(id)}</span>
+                  </span>
+                );
+              }
             })}
           </p>
         </div>

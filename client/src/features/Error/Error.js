@@ -4,7 +4,7 @@ import errorImage from "../../images/error-404.webp";
 
 const Error = () => {
   return (
-    <Paper sx={{ width: "90%" }}>
+    <Paper sx={{ width: "100%" }}>
       <img src={errorImage} alt="error" />
     </Paper>
   );

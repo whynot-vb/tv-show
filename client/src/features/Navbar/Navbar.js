@@ -7,20 +7,18 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import ButtonGroup from "@mui/material/ButtonGroup";
 
 import {
   selectStatus,
   selectResultIds,
+  selectPageNumber,
   mostPopularTvShows,
   onTheAirTvShows,
   topRatedTvShows,
 } from "../../slices/tvShowSlice";
-import {
-  showStatus,
-  isDetailsOn,
-  isEpisodesPageOn,
-} from "../../constants/actionTypes";
+import { showStatus, setSearchField } from "../../constants/actionTypes";
 import Card from "../Card/Card";
 import "../features.css";
 
@@ -42,26 +40,24 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar() {
   const status = useSelector(selectStatus);
   const showIds = useSelector(selectResultIds);
+  const page = useSelector(selectPageNumber);
   const classes = useStyles();
   const dispatch = useDispatch();
 
   async function handleNewClick() {
-    await dispatch(isDetailsOn(false));
-    await dispatch(isEpisodesPageOn(false));
     await dispatch(showStatus("onTheAir"));
-    await dispatch(onTheAirTvShows(1));
+    await dispatch(setSearchField(""));
+    await dispatch(onTheAirTvShows(page));
   }
   async function handleMostPopularClick() {
-    await dispatch(isDetailsOn(false));
-    await dispatch(isEpisodesPageOn(false));
     await dispatch(showStatus("popular"));
-    await dispatch(mostPopularTvShows(1));
+    await dispatch(setSearchField(""));
+    await dispatch(mostPopularTvShows(page));
   }
   async function handleTopRatedClick() {
-    await dispatch(isDetailsOn(false));
-    await dispatch(isEpisodesPageOn(false));
     await dispatch(showStatus("topRated"));
-    await dispatch(topRatedTvShows(1));
+    await dispatch(setSearchField(""));
+    await dispatch(topRatedTvShows(page));
   }
 
   return (
@@ -76,8 +72,9 @@ export default function Navbar() {
             >
               <Button onClick={handleMostPopularClick}>
                 <Typography
-                  variant="h6"
+                  variant={status === "popular" ? "h5" : "h6"}
                   color={status === "popular" ? "textPrimary" : "textSecondary"}
+                  fontWeight={status === "popular" ? "bold" : "medium"}
                   noWrap
                 >
                   POPULAR
@@ -85,10 +82,11 @@ export default function Navbar() {
               </Button>
               <Button onClick={handleNewClick}>
                 <Typography
-                  variant="h6"
+                  variant={status === "onTheAir" ? "h5" : "h6"}
                   color={
                     status === "onTheAir" ? "textPrimary" : "textSecondary"
                   }
+                  fontWeight={status === "onTheAir" ? "bold" : "medium"}
                   noWrap
                 >
                   NEW
@@ -96,10 +94,11 @@ export default function Navbar() {
               </Button>
               <Button onClick={handleTopRatedClick}>
                 <Typography
-                  variant="h6"
+                  variant={status === "topRated" ? "h5" : "h6"}
                   color={
                     status === "topRated" ? "textPrimary" : "textSecondary"
                   }
+                  fontWeight={status === "topRated" ? "bold" : "medium"}
                   noWrap
                 >
                   TOP RATED

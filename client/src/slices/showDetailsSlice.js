@@ -10,8 +10,6 @@ import {
 } from "../constants/actionTypes";
 
 const initialState = {
-  isDetailsOn: false,
-  isEpisodesPageOn: false,
   details: {},
   people: {},
   images: {},
@@ -21,18 +19,6 @@ const initialState = {
 
 export default function detailsReducer(state = initialState, action) {
   switch (action.type) {
-    case "details/isDetailsOn": {
-      return {
-        ...state,
-        isDetailsOn: action.payload,
-      };
-    }
-    case "details/isEpisodesPageOn": {
-      return {
-        ...state,
-        isEpisodesPageOn: action.payload,
-      };
-    }
     case "details/showDetails": {
       return {
         ...state,
@@ -129,6 +115,4 @@ export function showEpisodes(tvShow_ID, season_number) {
   };
 }
 
-export const selectIsDetailsOn = (state) => state.details.isDetailsOn;
-export const selectIsEpisodesPageOn = (state) => state.details.isEpisodesPageOn;
 export const selectOverview = (state) => state.details.details.details.overview;

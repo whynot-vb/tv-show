@@ -1,12 +1,7 @@
 import axios from "axios";
 import { createSelector } from "@reduxjs/toolkit";
 
-import {
-  showList,
-  showStatus,
-  showPage,
-  showId,
-} from "../constants/actionTypes";
+import { showList } from "../constants/actionTypes";
 
 const initialState = {
   status: "popular",
@@ -89,7 +84,6 @@ export function searchTvShowsByName(query, pageNumber) {
   };
 }
 
-//(state) => state.shows.showList.results;
 export const selectResults = createSelector(
   (state) => state.shows,
   (shows) => shows.showList.results
@@ -108,4 +102,9 @@ export const selectResultIds = createSelector(
 export const selectPageNumber = createSelector(
   (state) => state.shows,
   (shows) => shows.page
+);
+
+export const selectSearchResults = createSelector(
+  (state) => state.shows,
+  (shows) => shows.searchField
 );

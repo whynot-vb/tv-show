@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { createSelector } from "@reduxjs/toolkit";
 
 import MiniCard from "./MiniCard";
 import "../../features/features.css";

@@ -13,14 +13,9 @@ export const setSearchField = (field) => ({
   payload: field,
 });
 
-export const isDetailsOn = (isDetails) => ({
-  type: "details/isDetailsOn",
-  payload: isDetails,
-});
-
-export const isEpisodesPageOn = (isEpisodesPageOn) => ({
-  type: "details/isEpisodesPageOn",
-  payload: isEpisodesPageOn,
+export const setPage = (pageNumber) => ({
+  type: "shows/setPage",
+  payload: pageNumber,
 });
 
 export const showDetails = (data, showId) => ({

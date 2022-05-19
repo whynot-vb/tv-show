@@ -134,7 +134,7 @@ export const register = (newUser, history) => async (dispatch) => {
       payload: { user, token, favoriteShows },
     });
     addUserToLocalStorage({ user, token, favoriteShows });
-    setTimeout(() => history.push("/"), 1000);
+    setTimeout(() => history.push("/"), 700);
   } catch (error) {
     dispatch({ type: REGISTER_USER_ERROR });
   }
@@ -151,7 +151,7 @@ export const login = (existingUser, history) => async (dispatch) => {
       payload: { user, token, favoriteShows },
     });
     await dispatch(getFavoriteShows());
-    await setTimeout(() => history.push("/"), 1000);
+    await setTimeout(() => history.push("/"), 700);
   } catch (error) {
     dispatch({ type: LOGIN_USER_ERROR });
   }

@@ -1,24 +1,25 @@
 import React from "react";
 import { useSelector } from "react-redux";
+
 import { selectPosterPath } from "./AllDetails";
 import noImageE from "../../images/no-image-e.jpg";
 
-// const selectElements = createSelector(
-//   (state) => state.details,
-//   (details) => details.elements
-// );
-const selectElements = (state) => state.details.elements;
+const selectElements = (state) => state?.details?.elements;
+// const selectName = (state) => state?.details?.details?.details?.name;
 
 export default function EpisodesInfo() {
   const poster_path = useSelector(selectPosterPath);
   const elements = useSelector(selectElements);
+  // const name = useSelector(selectName);
   const myStyle = {
     backgroundImage: `url(https://image.tmdb.org/t/p/original/${poster_path})`,
     zIndex: -1,
     color: "white",
   };
+
   return (
     <div style={myStyle}>
+      {/* <h1>{name}</h1> */}
       {elements?.map((element) => {
         return (
           <>

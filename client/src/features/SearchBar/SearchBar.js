@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { alpha, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -20,14 +20,12 @@ import TvIcon from "@material-ui/icons/Tv";
 import {
   searchTvShowsByName,
   mostPopularTvShows,
+  selectSearchResults,
+  selectPageNumber,
 } from "../../slices/tvShowSlice";
-import {
-  showStatus,
-  isDetailsOn,
-  isEpisodesPageOn,
-  clearElements,
-} from "../../constants/actionTypes";
+import { showStatus, setSearchField } from "../../constants/actionTypes";
 import { logout } from "../../slices/authSlice";
+import "../features.css";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -40,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     display: "none",
     [theme.breakpoints.up("sm")]: {
       display: "block",
+      marginRight: "30px",
     },
   },
   search: {
@@ -94,55 +93,49 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SearchBar() {
+  const history = useHistory();
   const dispatch = useDispatch();
+  const searchResults = useSelector(selectSearchResults);
+  const page = useSelector(selectPageNumber);
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
+
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const [searchFieldValue, setSearchFieldValue] = useState("");
   const user = useSelector((state) => state.auth.user);
   const token = useSelector((state) => state.auth.token);
 
-  // const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
+    dispatch(setSearchField(""));
   };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+    dispatch(setSearchField(""));
   };
 
   const handleInputChange = async (event) => {
-    setSearchFieldValue(event.target.value);
-    dispatch(clearElements());
-    await dispatch(isDetailsOn(false));
-    await dispatch(isEpisodesPageOn(false));
-
+    await dispatch(setSearchField(event.target.value));
+    history.push(`/search/${event.target.value}`);
     await dispatch(showStatus("search"));
-    await dispatch(searchTvShowsByName(event.target.value, 1));
+    await dispatch(searchTvShowsByName(event.target.value, page));
   };
 
   function handleMostPopularClick() {
-    dispatch(isDetailsOn(false));
-    dispatch(clearElements());
-    dispatch(isEpisodesPageOn(false));
     dispatch(showStatus("popular"));
-    dispatch(mostPopularTvShows(1));
+    dispatch(setSearchField(""));
+    dispatch(mostPopularTvShows(page));
   }
 
   const handleLogout = () => {
     if (user) {
       dispatch(logout());
+      dispatch(setSearchField(""));
+      setTimeout(() => history.push("/"), 700);
     } else return;
   };
 
@@ -168,9 +161,9 @@ export default function SearchBar() {
       onClose={handleMobileMenuClose}
     >
       {user && token && (
-        <MenuItem>
+        <MenuItem component={Link} to="/favorites">
           <IconButton color="inherit">
-            <TvIcon component={Link} to="/auth" />
+            <TvIcon />
           </IconButton>
           <p>Favorites</p>
         </MenuItem>
@@ -184,7 +177,10 @@ export default function SearchBar() {
         >
           <AccountCircle />
         </IconButton>
-        <p>{!user ? "Register/Login" : "Logout"}</p>
+        <p>
+          <span>{user ? user.userName : ""}</span> &nbsp;
+          {!user ? "Register/Login" : "Logout"}
+        </p>
       </MenuItem>
     </Menu>
   );
@@ -199,17 +195,19 @@ export default function SearchBar() {
             edge="start"
             className={classes.menuButton}
             color="inherit"
-            sx={{ marginRight: "20px" }}
+            sx={{ marginRight: "30px", border: "1px solid #fff" }}
             aria-label="open drawer"
             onClick={handleMostPopularClick}
           >
+            <Typography className={classes.title} variant="h5" noWrap>
+              HOME
+            </Typography>
             <HomeIcon color="white" fontSize="large" />
             {"  "}
-            <Typography className={classes.title} variant="h5" noWrap>
-              TV SHOW BROWSER
-            </Typography>
           </IconButton>
-
+          <Typography className={classes.title} variant="h5" noWrap>
+            TV SHOW BROWSER
+          </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -221,7 +219,7 @@ export default function SearchBar() {
                 input: classes.inputInput,
               }}
               onChange={handleInputChange}
-              value={searchFieldValue}
+              value={searchResults}
               inputProps={{ "aria-label": "search" }}
             />
           </div>
@@ -237,7 +235,7 @@ export default function SearchBar() {
                 aria-haspopup="true"
                 onClick={handleProfileMenuOpen}
                 color="inherit"
-                sx={{ marginRight: "15px" }}
+                sx={{ marginRight: "15px", border: "1px solid #fff" }}
               >
                 <Typography variant="h6">Favorites </Typography>
                 <TvIcon />
@@ -252,9 +250,11 @@ export default function SearchBar() {
               aria-haspopup="true"
               onClick={handleLogout}
               color="inherit"
+              sx={{ border: "1px solid #fff" }}
             >
-              <AccountCircle />
               <Typography variant="h6">
+                <span>{user ? user.userName : ""}</span>
+                <AccountCircle />
                 {!user ? "Register/Login" : "Logout"}
               </Typography>
             </IconButton>
@@ -273,7 +273,6 @@ export default function SearchBar() {
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
-      {/* {renderMenu} */}
     </div>
   );
 }

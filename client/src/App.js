@@ -8,7 +8,7 @@ import Footer from "./features/Footer/Footer";
 import AllDetails from "./features/TvShowDetails/AllDetails";
 import PaginationObject from "./features/Navbar/PaginationObject/PaginationObject";
 import Error from "./features/Error/Error";
-import { selectStatus, mostPopularTvShows } from "./slices/tvShowSlice";
+import { mostPopularTvShows } from "./slices/tvShowSlice";
 import { getFavoriteShows } from "./slices/authSlice";
 import "./App.css";
 import Register from "./features/Register/Register";
@@ -35,6 +35,11 @@ function App() {
             <PaginationObject />
             <Footer />
           </Route>
+          <Route exact path="/search/:id">
+            <Navbar />
+            <PaginationObject />
+            <Footer />
+          </Route>
           <Route exact path="/auth">
             <Register />
           </Route>
@@ -47,6 +52,9 @@ function App() {
           <Route exact path="/favorites">
             <Favorites />
           </Route>
+          <Route path="*">
+            <Error />
+          </Route>
         </Switch>
       </div>
     </Router>
@@ -54,31 +62,3 @@ function App() {
 }
 
 export default App;
-
-/* <Router>
-      <div style={{ backgroundImage: "url(/images/tv-show-motive.jpg)" }}>
-        <Switch>
-          <SearchBar />
-          <Route exact path="/">
-            <Navbar />
-            <PaginationObject />
-            <Footer />
-          </Route>
-          <Route path="/details/:id">
-            <AllDetails />
-          </Route>
-          <Route path="/details/episode/:id">
-            <EpisodesInfo />
-          </Route>
-          <Route exact path="/auth">
-            <Register />
-          </Route>
-          <Route exact path="/favorites">
-            <Favorites />
-          </Route>
-          <Route path="*">
-            <Error />
-          </Route>
-        </Switch>
-      </div>
-    </Router> */
