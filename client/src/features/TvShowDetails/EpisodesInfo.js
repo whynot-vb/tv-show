@@ -23,11 +23,13 @@ export default function EpisodesInfo() {
       {elements?.map((element) => {
         return (
           <>
-            <h2 className="season-number">{element?.name}</h2>
+            <h2 className="season-number" key={element?.name}>
+              {element?.name}
+            </h2>
             <div className="episode-list">
               {element?.episodes?.map((episode) => {
                 return (
-                  <div className="episode-container" key={episode.id}>
+                  <div className="episode-container" key={episode?.id}>
                     <img
                       src={
                         episode?.still_path

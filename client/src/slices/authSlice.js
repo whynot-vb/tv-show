@@ -1,10 +1,7 @@
 import * as api from "../api";
 import {
-  OPERATION_USER_BEGIN,
   REGISTER_USER_OK,
-  REGISTER_USER_ERROR,
   LOGIN_USER_OK,
-  LOGIN_USER_ERROR,
   LOGOUT_USER,
   ADD_SHOW_TO_FAVORITES,
   REMOVE_SHOW_FROM_FAVORITES,
@@ -21,7 +18,6 @@ let user = localStorage.getItem("user");
 let favoriteShows = localStorage.getItem("favoriteShows");
 
 const initialState = {
-  isLoading: false,
   user: user ? JSON.parse(user) : null,
   token: token,
   favoriteShows: favoriteShows?.split(","),
@@ -30,43 +26,25 @@ const initialState = {
 
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
-    case OPERATION_USER_BEGIN: {
-      return { ...state, isLoading: true };
-    }
     case REGISTER_USER_OK: {
       return {
         ...state,
-        isLoading: false,
         user: action.payload.user,
         token: action.payload.token,
         favoriteShows: action.payload.favoriteShows,
-      };
-    }
-    case REGISTER_USER_ERROR: {
-      return {
-        ...state,
-        isLoading: false,
       };
     }
     case LOGIN_USER_OK: {
       return {
         ...state,
-        isLoading: false,
         user: action.payload.user,
         token: action.payload.token,
         favoriteShows: action.payload.favoriteShows,
       };
     }
-    case LOGIN_USER_ERROR: {
-      return {
-        ...state,
-        isLoading: false,
-      };
-    }
     case LOGOUT_USER: {
       return {
         ...state,
-        isLoading: false,
         user: null,
         token: null,
         favoriteShows: [],
@@ -125,7 +103,6 @@ export const removeUserFromLocalStorage = () => {
 };
 
 export const register = (newUser, history) => async (dispatch) => {
-  dispatch({ type: OPERATION_USER_BEGIN });
   try {
     const { data } = await api.register(newUser);
     const { user, token, favoriteShows } = data;
@@ -136,12 +113,11 @@ export const register = (newUser, history) => async (dispatch) => {
     addUserToLocalStorage({ user, token, favoriteShows });
     setTimeout(() => history.push("/"), 700);
   } catch (error) {
-    dispatch({ type: REGISTER_USER_ERROR });
+    history.push("/error");
   }
 };
 
 export const login = (existingUser, history) => async (dispatch) => {
-  dispatch({ type: OPERATION_USER_BEGIN });
   try {
     const { data } = await api.login(existingUser);
     const { user, token, favoriteShows } = data;
@@ -153,7 +129,7 @@ export const login = (existingUser, history) => async (dispatch) => {
     await dispatch(getFavoriteShows());
     await setTimeout(() => history.push("/"), 700);
   } catch (error) {
-    dispatch({ type: LOGIN_USER_ERROR });
+    history.push("/error");
   }
 };
 
@@ -202,7 +178,6 @@ export const removeShowFromFavorites = (showId) => async (dispatch) => {
 
 export const getFavoriteShows = () => async (dispatch, getState) => {
   await dispatch({ type: CLEAR_FAVORITE_SHOW_DETAILS });
-  console.log(getState());
   try {
     getState().auth.favoriteShows.map(async (showId) => {
       let show = await axios.get(

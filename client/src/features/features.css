@@ -1,14 +1,5 @@
 @import "~react-image-gallery/styles/css/image-gallery.css";
 
-/* .tv-list {
-  width: 85vw;
-  min-height: 90vh;
-  margin: 15px auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 25px;
-} */
-
 .tv-list {
   width: 90%;
   display: grid;
@@ -158,16 +149,6 @@
   margin-right: 15%;
   margin-left: 15%;
 }
-
-/* .recommended-list {
-  width: 70%;
-  margin-top: 30px;
-  margin-right: 15%;
-  margin-left: 15%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 25px;
-} */
 
 .recommended-list {
   width: 70%;

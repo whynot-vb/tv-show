@@ -100,8 +100,8 @@ export default function SearchBar() {
   const classes = useStyles();
 
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const user = useSelector((state) => state.auth.user);
-  const token = useSelector((state) => state.auth.token);
+  const user = useSelector((state) => state?.auth?.user);
+  const token = useSelector((state) => state?.auth?.token);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 

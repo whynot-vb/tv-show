@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-// import AppBar from "@material-ui/core/AppBar";
+
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
 import ButtonGroup from "@mui/material/ButtonGroup";
 
 import {
@@ -110,7 +108,7 @@ export default function Navbar() {
       </div>
       <br />
       <div className="tv-list">
-        {showIds.map((showId) => (
+        {showIds?.map((showId) => (
           <Card key={showId} id={showId} />
         ))}
       </div>

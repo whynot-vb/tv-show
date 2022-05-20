@@ -48,11 +48,8 @@ export const showRecommended = (data, showId) => ({
 });
 
 //constants from server
-export const OPERATION_USER_BEGIN = "OPERATION_USER_BEGIN";
 export const REGISTER_USER_OK = "REGISTER_USER_OK";
-export const REGISTER_USER_ERROR = "REGISTER_USER_ERROR";
 export const LOGIN_USER_OK = "LOGIN_USER_OK";
-export const LOGIN_USER_ERROR = "LOGIN_USER_ERROR";
 export const LOGOUT_USER = "LOGOUT_USER";
 export const ADD_SHOW_TO_FAVORITES = "ADD_SHOW_TO_FAVORITES";
 export const REMOVE_SHOW_FROM_FAVORITES = "REMOVE_SHOW_FROM_FAVORITES";

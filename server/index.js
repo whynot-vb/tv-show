@@ -2,6 +2,9 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import "express-async-errors";
+import helmet from "helmet";
+import xss from "xss-clean";
+import mongoSanitize from "express-mongo-sanitize";
 import morgan from "morgan";
 import express from "express";
 
@@ -21,6 +24,9 @@ if (process.env.NODE_ENV !== "production") {
 
 app.use(cors());
 app.use(express.json());
+app.use(helmet());
+app.use(xss());
+app.use(mongoSanitize());
 
 app.use("/auth", authRouter);
 

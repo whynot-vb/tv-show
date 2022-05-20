@@ -78,7 +78,7 @@ export default function BasicInfo() {
                 : "Please sign in to add tv show to your favorite watchlist"
             }
             onClick={() => {
-              dispatch(addShowToFavorites(tvShow_ID));
+              if (user && token) dispatch(addShowToFavorites(tvShow_ID));
             }}
           >
             Add to my Watchlist

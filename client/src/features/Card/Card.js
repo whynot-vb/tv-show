@@ -49,7 +49,7 @@ export default function Card({ id }) {
               </span>
             </div>
             <p>
-              {show?.genre_ids.map((id, i) => {
+              {show?.genre_ids?.map((id, i) => {
                 if (i < 3) {
                   return (
                     <span key={id} className="genre-container">
